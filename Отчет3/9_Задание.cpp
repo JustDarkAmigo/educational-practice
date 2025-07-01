@@ -1,50 +1,43 @@
-const int redLedPin = 9;
-const int greenLedPin = 5;
-const int photoResistorPin = A0;
-const int threshold = 512;
-const unsigned long doorOpenTime = 5000;
-
-bool doorOpen = false;
-unsigned long doorOpenStartTime = 0;
+#define RED_PIN 9
+#define GREEN_PIN 5
+#define PHOTO_PIN A0
+#define LIGHT_THRESHOLD 512
+#define DOOR_OPEN_DELAY 3000
+unsigned long doorOpenTime = 0;
+bool doorIsOpen = false;
 
 void setup() {
-  pinMode(redLedPin, OUTPUT);
-  pinMode(greenLedPin, OUTPUT);
-  Serial.begin(9600);
-  digitalWrite(redLedPin, HIGH);
-  digitalWrite(greenLedPin, LOW);
-  Serial.println("Двери закрыты");
+  Serial.begin(115200);
+  pinMode(RED_PIN, OUTPUT);
+  pinMode(GREEN_PIN, OUTPUT);
+  digitalWrite(RED_PIN, HIGH);
 }
 
 void loop() {
-  int sensorValue = analogRead(photoResistorPin);
-  
-  if (sensorValue > threshold) {
-    if (!doorOpen) {
-      doorOpen = true;
-      doorOpenStartTime = millis();
-      digitalWrite(redLedPin, LOW);
-      digitalWrite(greenLedPin, HIGH);
-      Serial.println("Двери открываются");
-    } else {
-      if (millis() - doorOpenStartTime >= doorOpenTime) {
-        sensorValue = analogRead(photoResistorPin);
-        if (sensorValue <= threshold) {
-          doorOpen = false;
-          digitalWrite(greenLedPin, LOW);
-          digitalWrite(redLedPin, HIGH);
-          Serial.println("Двери закрываются");
-        } else {
-          doorOpenStartTime = millis();
-        }
-      }
-    }
-  } else if (doorOpen && (millis() - doorOpenStartTime >= doorOpenTime)) {
-    doorOpen = false;
-    digitalWrite(greenLedPin, LOW);
-    digitalWrite(redLedPin, HIGH);
-    Serial.println("Двери закрываются (время истекло)");
+  int lightValue = analogRead(PHOTO_PIN);
+  if (lightValue > LIGHT_THRESHOLD && !doorIsOpen) {
+    openDoor();
+    doorOpenTime = millis();
   }
-  
-  delay(100);
+  if (doorIsOpen && (millis() - doorOpenTime >= DOOR_OPEN_DELAY)) {
+    if (analogRead(PHOTO_PIN) <= LIGHT_THRESHOLD) {
+      closeDoor();
+    } else {
+      doorOpenTime = millis();
+    }
+  }
+}
+
+void openDoor() {
+  doorIsOpen = true;
+  digitalWrite(RED_PIN, LOW);
+  digitalWrite(GREEN_PIN, HIGH);
+  Serial.println("Дверь открывается");
+}
+
+void closeDoor() {
+  doorIsOpen = false;
+  digitalWrite(GREEN_PIN, LOW);
+  digitalWrite(RED_PIN, HIGH);
+  Serial.println("Дверь закрывается");
 }
