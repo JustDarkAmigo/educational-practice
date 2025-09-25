@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 using namespace std;
-
 bool isValidCarNumber(const string& number) {
     if (number.length() != 6) return false;
 
@@ -14,20 +13,16 @@ bool isValidCarNumber(const string& number) {
     for (int i = 4; i < 6; i++) {
         if (!isupper(number[i])) return false;
     }
-
     return true;
 }
-
 int main() {
     string carNumber;
     cout << "Введите номер машины: ";
     cin >> carNumber;
-
     if (isValidCarNumber(carNumber)) {
         cout << "Yes\n";
     } else {
         cout << "No\n";
     }
-
     return 0;
 }
