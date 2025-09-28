@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
 vector<vector<int>> generateGraph(int n, int m) {
     vector<vector<int>> graph(n + 1);
     cout << "Введите " << m << " рёбер (формат: u v, где u и v <= "<< n <<"):" << endl;
@@ -35,7 +34,6 @@ int count_communication_lines(int n, const vector<vector<int>>& graph) {
 
     return count;
 }
-
 int main() {
   int n, m;
   cout << "Здравствуйте, введите число вершин графа (узлы сети, не более 1000)" << endl << 
