@@ -5,14 +5,12 @@
 #define DOOR_OPEN_DELAY 3000
 unsigned long doorOpenTime = 0;
 bool doorIsOpen = false;
-
 void setup() {
   Serial.begin(115200);
   pinMode(RED_PIN, OUTPUT);
   pinMode(GREEN_PIN, OUTPUT);
   digitalWrite(RED_PIN, HIGH);
 }
-
 void loop() {
   int lightValue = analogRead(PHOTO_PIN);
   if (lightValue > LIGHT_THRESHOLD && !doorIsOpen) {
@@ -27,14 +25,12 @@ void loop() {
     }
   }
 }
-
 void openDoor() {
   doorIsOpen = true;
   digitalWrite(RED_PIN, LOW);
   digitalWrite(GREEN_PIN, HIGH);
   Serial.println("Дверь открывается");
 }
-
 void closeDoor() {
   doorIsOpen = false;
   digitalWrite(GREEN_PIN, LOW);
