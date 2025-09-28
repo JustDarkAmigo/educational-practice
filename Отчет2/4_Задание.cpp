@@ -2,7 +2,6 @@
 #include <vector>
 #include <string>
 using namespace std;
-
 string decrypt(const string& encrypted, const vector<int>& permutation, int k) {
     int n = encrypted.size();
     string original = encrypted;
