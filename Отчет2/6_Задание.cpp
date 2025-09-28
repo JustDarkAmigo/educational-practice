@@ -1,8 +1,6 @@
 #include <iostream>
 #include <vector>
-
 using namespace std;
-
 int main() {
     int n;
     cout << "введите количество запросов:";
