@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
 void snow_center(int n, int k){
   vector<int> snow_level(n,0);
   int count_k = 0;
@@ -24,7 +23,6 @@ void snow_center(int n, int k){
     ++count_k;
   }
 }
-
 int main() {
   int n,k;
   cout << "введите количество улиц и число запросов через пробел: ";
