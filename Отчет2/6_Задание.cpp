@@ -6,7 +6,6 @@ int main() {
     cout << "введите количество запросов:";
     cin >> n;
     vector<int> results;
-
     for (int i = 0; i < n; ++i) {
         int a, b, x, y;
         cin >> a >> b >> x >> y;
