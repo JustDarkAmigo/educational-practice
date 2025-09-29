@@ -1,22 +1,21 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 int main() {
     int n;
-    cout << "введите количество запросов:";
+    cout << "Введите колличество запросов: ";
     cin >> n;
     vector<int> results;
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; i++) {
         int a, b, x, y;
         cin >> a >> b >> x >> y;
-        int pairs1 = min(a, x);
-        int availableA = a - pairs1;
-        int availableB = b;
-        int pairs2 = min(availableA + availableB, y); 
-        int totalPairs = pairs1 + pairs2;
-        results.push_back(totalPairs);
+        int pairs_A = min(a, x + y);
+        int pairs_B = min(b, x);
+        int total_pairs = pairs_A + pairs_B;
+        results.push_back(total_pairs);
     }
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; i++) {
         cout << results[i] << " ";
     }
     cout << endl;
